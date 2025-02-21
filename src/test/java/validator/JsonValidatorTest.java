@@ -22,11 +22,9 @@ public class JsonValidatorTest {
 
   /**
    * Test the case of an empty JSON.
-   *
-   * @throws InvalidJsonException if an error occurs during the check
    */
   @Test
-  public void testEmpty() throws InvalidJsonException {
+  public void testEmpty() {
     assertEquals("Status:Empty", validator.output());
   }
 
@@ -38,16 +36,16 @@ public class JsonValidatorTest {
   @Test
   public void testSingleKV() throws InvalidJsonException {
     validator.input('{')
-             .input('"')
-             .input('a')
-             .input('"')
-             .input(':')
-             .input('"')
-             .input('1')
-             .input('2')
-             .input('3')
-             .input('"')
-             .input('}');
+            .input('"')
+            .input('a')
+            .input('"')
+            .input(':')
+            .input('"')
+            .input('1')
+            .input('2')
+            .input('3')
+            .input('"')
+            .input('}');
     assertEquals("Status:Valid", validator.output());
   }
 
@@ -59,26 +57,26 @@ public class JsonValidatorTest {
   @Test
   public void testMultipleKV() throws InvalidJsonException {
     validator.input('{')
-             .input('"')
-             .input('a')
-             .input('"')
-             .input(':')
-             .input('"')
-             .input('1')
-             .input('2')
-             .input('3')
-             .input('"')
-             .input(',')
-             .input('"')
-             .input('b')
-             .input('"')
-             .input(':')
-             .input('"')
-             .input('4')
-             .input('5')
-             .input('6')
-             .input('"')
-             .input('}');
+            .input('"')
+            .input('a')
+            .input('"')
+            .input(':')
+            .input('"')
+            .input('1')
+            .input('2')
+            .input('3')
+            .input('"')
+            .input(',')
+            .input('"')
+            .input('b')
+            .input('"')
+            .input(':')
+            .input('"')
+            .input('4')
+            .input('5')
+            .input('6')
+            .input('"')
+            .input('}');
     assertEquals("Status:Valid", validator.output());
   }
 
@@ -90,14 +88,14 @@ public class JsonValidatorTest {
   @Test(expected = InvalidJsonException.class)
   public void testMissCol() throws InvalidJsonException {
     validator.input('{')
-             .input('"')
-             .input('a')
-             .input('"')
-             .input('"')
-             .input('1')
-             .input('2')
-             .input('3')
-             .input('}');
+            .input('"')
+            .input('a')
+            .input('"')
+            .input('"')
+            .input('1')
+            .input('2')
+            .input('3')
+            .input('}');
   }
 
   /**
@@ -108,20 +106,20 @@ public class JsonValidatorTest {
   @Test
   public void testObjInObj() throws InvalidJsonException {
     validator.input('{')
-             .input('"')
-             .input('a')
-             .input('"')
-             .input(':')
-             .input('{')
-             .input('"')
-             .input('b')
-             .input('"')
-             .input(':')
-             .input('"')
-             .input('1')
-             .input('"')
-             .input('}')
-             .input('}');
+            .input('"')
+            .input('a')
+            .input('"')
+            .input(':')
+            .input('{')
+            .input('"')
+            .input('b')
+            .input('"')
+            .input(':')
+            .input('"')
+            .input('1')
+            .input('"')
+            .input('}')
+            .input('}');
     assertEquals("Status:Valid", validator.output());
   }
 
@@ -133,24 +131,24 @@ public class JsonValidatorTest {
   @Test
   public void testArrOfStr() throws InvalidJsonException {
     validator.input('{')
-             .input('"')
-             .input('a')
-             .input('"')
-             .input(':')
-             .input('[')
-             .input('"')
-             .input('1')
-             .input('"')
-             .input(',')
-             .input('"')
-             .input('2')
-             .input('"')
-             .input(',')
-             .input('"')
-             .input('3')
-             .input('"')
-             .input(']')
-             .input('}');
+            .input('"')
+            .input('a')
+            .input('"')
+            .input(':')
+            .input('[')
+            .input('"')
+            .input('1')
+            .input('"')
+            .input(',')
+            .input('"')
+            .input('2')
+            .input('"')
+            .input(',')
+            .input('"')
+            .input('3')
+            .input('"')
+            .input(']')
+            .input('}');
     assertEquals("Status:Valid", validator.output());
   }
 
@@ -162,32 +160,32 @@ public class JsonValidatorTest {
   @Test
   public void testArrOfObj() throws InvalidJsonException {
     validator.input('{')
-             .input('"')
-             .input('a')
-             .input('"')
-             .input(':')
-             .input('[')
-             .input('{')
-             .input('"')
-             .input('b')
-             .input('"')
-             .input(':')
-             .input('"')
-             .input('1')
-             .input('"')
-             .input('}')
-             .input(',')
-             .input('{')
-             .input('"')
-             .input('c')
-             .input('"')
-             .input(':')
-             .input('"')
-             .input('2')
-             .input('"')
-             .input('}')
-             .input(']')
-             .input('}');
+            .input('"')
+            .input('a')
+            .input('"')
+            .input(':')
+            .input('[')
+            .input('{')
+            .input('"')
+            .input('b')
+            .input('"')
+            .input(':')
+            .input('"')
+            .input('1')
+            .input('"')
+            .input('}')
+            .input(',')
+            .input('{')
+            .input('"')
+            .input('c')
+            .input('"')
+            .input(':')
+            .input('"')
+            .input('2')
+            .input('"')
+            .input('}')
+            .input(']')
+            .input('}');
     assertEquals("Status:Valid", validator.output());
   }
 
@@ -199,14 +197,14 @@ public class JsonValidatorTest {
   @Test(expected = InvalidJsonException.class)
   public void testKeyStartWithNum() throws InvalidJsonException {
     validator.input('{')
-             .input('"')
-             .input('1')
-             .input('"')
-             .input(':')
-             .input('"')
-             .input('a')
-             .input('"')
-             .input('}');
+            .input('"')
+            .input('1')
+            .input('"')
+            .input(':')
+            .input('"')
+            .input('a')
+            .input('"')
+            .input('}');
   }
 
   /**
@@ -256,25 +254,25 @@ public class JsonValidatorTest {
   @Test(expected = InvalidJsonException.class)
   public void testMissComma() throws InvalidJsonException {
     validator.input('{')
-             .input('"')
-             .input('a')
-             .input('"')
-             .input(':')
-             .input('"')
-             .input('1')
-             .input('2')
-             .input('3')
-             .input('"')
-             .input('"')
-             .input('b')
-             .input('"')
-             .input(':')
-             .input('"')
-             .input('4')
-             .input('5')
-             .input('6')
-             .input('"')
-             .input('}');
+            .input('"')
+            .input('a')
+            .input('"')
+            .input(':')
+            .input('"')
+            .input('1')
+            .input('2')
+            .input('3')
+            .input('"')
+            .input('"')
+            .input('b')
+            .input('"')
+            .input(':')
+            .input('"')
+            .input('4')
+            .input('5')
+            .input('6')
+            .input('"')
+            .input('}');
   }
 
   /**
@@ -285,14 +283,14 @@ public class JsonValidatorTest {
   @Test(expected = InvalidJsonException.class)
   public void testBrkFrmt() throws InvalidJsonException {
     validator.input('}')
-             .input('"')
-             .input('a')
-             .input('"')
-             .input(':')
-             .input('"')
-             .input('1')
-             .input('"')
-             .input('{');
+            .input('"')
+            .input('a')
+            .input('"')
+            .input(':')
+            .input('"')
+            .input('1')
+            .input('"')
+            .input('{');
   }
 
   /**
@@ -303,7 +301,7 @@ public class JsonValidatorTest {
   @Test
   public void testNokeyVal() throws InvalidJsonException {
     validator.input('{')
-             .input('}');
+            .input('}');
     assertEquals("Status:Valid", validator.output());
   }
 
@@ -315,11 +313,11 @@ public class JsonValidatorTest {
   @Test(expected = InvalidJsonException.class)
   public void testOnlyVal() throws InvalidJsonException {
     validator.input('{')
-             .input(':')
-             .input('"')
-             .input('1')
-             .input('"')
-             .input('}');
+            .input(':')
+            .input('"')
+            .input('1')
+            .input('"')
+            .input('}');
   }
 
   /**
@@ -330,11 +328,11 @@ public class JsonValidatorTest {
   @Test(expected = InvalidJsonException.class)
   public void testNoBrk() throws InvalidJsonException {
     validator.input('[')
-             .input(':')
-             .input('"')
-             .input('1')
-             .input('"')
-             .input(']');
+            .input(':')
+            .input('"')
+            .input('1')
+            .input('"')
+            .input(']');
   }
 
   /**
@@ -346,18 +344,17 @@ public class JsonValidatorTest {
   public void testCommaErr() throws InvalidJsonException {
     JsonValidator validator = new JsonValidator();
     validator.input('{')
-             .input('"')
-             .input('k')
-             .input('"')
-             .input(':')
-             .input('"')
-             .input('v')
-             .input('"')
-             .input(',')
-             .input(',')
-             .input('}');
+            .input('"')
+            .input('k')
+            .input('"')
+            .input(':')
+            .input('"')
+            .input('v')
+            .input('"')
+            .input(',')
+            .input(',')
+            .input('}');
   }
-
 
   /**
    * Test the case of white spaces.

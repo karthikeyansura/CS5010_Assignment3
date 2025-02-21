@@ -1,50 +1,54 @@
 package jsontree;
 
-import java.util.LinkedHashMap;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.AbstractMap;
 
+/**
+ * Concrete class representing a JSON object.
+ * This class implements the behavior for managing key-value pairs in a JSON object.
+ * The keys are validated to ensure they follow a specific naming convention.
+ */
 public class JsonObject extends IJsonObject {
-  private final Map<String, JsonNode> entries;
 
-  public JsonObject() {
-    this.entries = new LinkedHashMap<>();
-  }
+  // List of key-value pairs represented as Map.Entry to allow duplicate keys.
+  private final List<Map.Entry<String, JsonNode>> entries = new ArrayList<>();
 
+  /**
+   * Adds a new key-value pair to the JSON object.
+   * Validates the key to ensure it follows the specified naming convention (starts with a letter
+   * and contains alphanumeric characters).
+   * If the key is invalid, an {@link IllegalArgumentException} is thrown.
+   *
+   * @param key the key to be added to the JSON object.
+   * @param value the {@link JsonNode} value associated with the key.
+   * @throws IllegalArgumentException if the key does not follow the naming convention.
+   */
   @Override
   public void add(String key, JsonNode value) {
-    if (!isValidKey(key)) {
-      throw new IllegalArgumentException("Invalid key format");
+    if (!key.matches("^[a-zA-Z][a-zA-Z0-9]*$")) {
+      throw new IllegalArgumentException(key + " is not a valid key");
     }
-    entries.put(key, value);
+    // Add a new key-value pair to the list using AbstractMap.SimpleEntry
+    entries.add(new AbstractMap.SimpleEntry<>(key, value));
   }
 
-  private boolean isValidKey(String key) {
-    if (key == null || key.isEmpty() || !Character.isLetter(key.charAt(0))) {
-      return false;
-    }
-    return key.chars().allMatch(ch -> Character.isLetterOrDigit(ch));
+  /**
+   * Returns the type of the JSON node, which is {@link typeOfNode#OBJECT} for this class.
+   *
+   * @return {@link typeOfNode#OBJECT}.
+   */
+  protected typeOfNode typeObtain() {
+    return typeOfNode.OBJECT;
   }
 
-  @Override
-  protected String prettyPrint(int level) {
-    StringBuilder sb = new StringBuilder("{\n");
-
-    if (!entries.isEmpty()) {
-      int count = 0;
-      for (Map.Entry<String, JsonNode> entry : entries.entrySet()) {
-        sb.append(indent(level + 1))
-                .append("\"").append(entry.getKey()).append("\":")
-                .append(entry.getValue().prettyPrint(level + 1));
-
-        if (count < entries.size() - 1) {
-          sb.append(",");
-        }
-        sb.append("\n");
-        count++;
-      }
-    }
-
-    sb.append(indent(level)).append("}");
-    return sb.toString();
+  /**
+   * Returns the value of the JSON object, which is a list of key-value pairs.
+   *
+   * @return a list of {@link Map.Entry} containing the key-value pairs.
+   */
+  protected Object valueObtain() {
+    return entries;
   }
 }

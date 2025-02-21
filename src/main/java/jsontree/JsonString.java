@@ -1,32 +1,37 @@
 package jsontree;
 
+/**
+ * Represents a JSON String node.
+ * This class encapsulates a string value as part of a JSON structure.
+ */
 public class JsonString extends JsonNode {
+
   private final String value;
 
+  /**
+   * Constructs a JsonString node with the given value.
+   *
+   * @param value the string value to be encapsulated in this JSON node.
+   */
   public JsonString(String value) {
     this.value = value;
   }
 
-  @Override
-  public String prettyPrint() {
-    return prettyPrint(0);
+  /**
+   * Returns the value encapsulated by this JsonString node.
+   *
+   * @return the string value of this JsonString node.
+   */
+  protected Object valueObtain() {
+    return value;
   }
 
-  @Override
-  protected String prettyPrint(int level) {
-    return "\"" + value + "\"";
-  }
-
-  @Override
-  public boolean equals(Object obj) {
-    if (this == obj) return true;
-    if (!(obj instanceof JsonString)) return false;
-    JsonString other = (JsonString) obj;
-    return value.equals(other.value);
-  }
-
-  @Override
-  public int hashCode() {
-    return value.hashCode();
+  /**
+   * Returns the type of this JSON node, which is {@link typeOfNode#STRING}.
+   *
+   * @return the type of this node, which is always {@link typeOfNode#STRING} for JsonString.
+   */
+  protected typeOfNode typeObtain() {
+    return typeOfNode.STRING;
   }
 }
